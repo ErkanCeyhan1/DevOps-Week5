@@ -18,13 +18,13 @@ async function start() {
             persistent: true
         });
 
-        console.log('Message has been send to Messagebus');
+        console.log('Message has been send to Messagebus (v2)');
         res.json({ success: true});
     });
 
 
     app.listen(port, () => {
-        console.log(`Example server app is listening on http://localhost:${port}`);
+        console.log(`Revised Server APP (v2) is listening on http://localhost:${port}`);
     })
 
 
