@@ -18,7 +18,7 @@ async function start() {
             persistent: true
         });
 
-        console.log('Message has been send to Messagebus (v2)');
+        console.log('Message has been send to Messagebus (v3)');
         res.json({ success: true});
     });
 
