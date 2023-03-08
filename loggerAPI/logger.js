@@ -7,9 +7,10 @@ async function start() {
     await channel.assertQueue('logs', { durable: true});
     await channel.prefetch(1);
 
+    console.log('Logger Consumer start');
     channel.consume('logs', message => {
         console.log('Received message from messagebus');
-        fs.appendFile('', message.content.toString() + '\n', err => channel.ack(message));
+        fs.appendFile('../data/logregels.txt', message.content.toString() + '\n', err => channel.ack(message));
     })
 }
 
