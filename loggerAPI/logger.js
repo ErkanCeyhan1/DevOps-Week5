@@ -9,7 +9,7 @@ async function start() {
 
     channel.consume('logs', message => {
         console.log('Received message from messagebus');
-        fs.appendFile('', message.content.toString() + '\n', err => channel.ack(message));
+        fs.appendFile('/data/logregels.txt', message.content.toString() + '\n', err => channel.ack(message));
     })
 }
 
