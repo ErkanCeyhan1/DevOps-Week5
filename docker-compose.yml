@@ -7,13 +7,6 @@ services:
     hostname: "messagebus"
     labels:
       NAME: "messagebus"
-    ports:
-    - "4369:4369"
-    - "5671:5671"
-    - "5672:5672"
-    - "25672:25672"
-    - "15671:15671"
-    - "15672:15672"  
 
   logging:
     build: ./loggerAPI
@@ -27,6 +20,7 @@ services:
     depends_on:
       - messagebus
 
+
   web:
     build: ./server
     ports:
@@ -37,4 +31,5 @@ services:
       restart_policy:
         condition: on-failure
     depends_on:
-      - messagebus      
+      - messagebus     
+    
