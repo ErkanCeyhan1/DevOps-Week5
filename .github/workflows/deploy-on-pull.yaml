@@ -18,11 +18,11 @@ jobs:
       allowed-users: "*"
       restricted-files: |
         .bunnyshell/*
-      project-id: mBX25vnwZe
-      cluster-id: pXMWRp4G8B
+      project-id: "mBX25vnwZe"
+      cluster-id: "pXMWRp4G8B"
       env-name: "Demo PR #${{ github.event.number || github.event.issue.number }}"
       bunnyshell-yaml-path: .bunnyshell/bunnyshell.yaml
       comment-on-pr: true
       deploy-as-stopped: false
     secrets:
-      bunnyshell-access-token: ${{ secrets.BUNNYSHELL_PAT_TOKEN }}
+      bunnyshell-access-token: 2717:83a656274fa4a4b6824edaeff1ca1fea
