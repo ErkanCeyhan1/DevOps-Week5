@@ -8,7 +8,7 @@ async function start() {
     const connection = await amqp.connect(process.env.MESSAGE_QUEUE);
     const channel = await connection.createChannel();
     await channel.assertQueue('logs', { durable: true});
-
+    console.log('demo');
 
     app.get('/', (req, res) => {
         const message = { text: 'Hi there!'};
