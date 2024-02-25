@@ -1,28 +1,31 @@
-name: Deploy on Pull request
+name: Bunnyshell - Deploy Preview Environment
 on:
-  pull_request:
-    types: [ opened, reopened, synchronize ]
-    branches:
-      - '*'
-    paths-ignore:
-      - "*.md"
-  issue_comment:
-    types: [ created, edited ]
+  workflow_run:
+    workflows:
+      - "Bunnyshell - Prepare Preview Environment Configuration"
+    types:
+      - completed
+permissions:
+  pull-requests: write
 jobs:
+  load-artifact-from-reusable:
+    name: Load artifact values
+    uses: bunnyshell/workflows/.github/workflows/load-artifact.yaml@v2
+    with:
+      workflow_run_id: ${{ github.event.workflow_run.id }}
+
   deploy:
     name: Deploy Environment
-    uses: bunnyshell/workflows/.github/workflows/prepare-and-deploy-env.yaml@v2
+    needs: load-artifact-from-reusable
+    uses: bunnyshell/workflows/.github/workflows/deploy-env.yaml@v2
+    concurrency: bns-deploy-${{ needs.load-artifact-from-reusable.outputs.pr-number }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.load-artifact-from-reusable.outputs.skip-deployment == 'false' }}
     with:
-      pr-number: ${{ github.event.number || github.event.issue.number }}
-      git-ref: refs/pull/${{ github.event.number || github.event.issue.number }}/head
-      allowed-users: "*"
-      restricted-files: |
-        .bunnyshell/*
+      pr-number: ${{ needs.load-artifact-from-reusable.outputs.pr-number }}
       project-id: "mBX25vnwZe"
       cluster-id: "pXMWRp4G8B"
-      env-name: "Demo PR #${{ github.event.number || github.event.issue.number }}"
-      bunnyshell-yaml-path: .bunnyshell/bunnyshell.yaml
+      env-name: "Demo PR #${{ needs.load-artifact-from-reusable.outputs.pr-number }}"
+      bunnyshell-yaml-contents: ${{ needs.load-artifact-from-reusable.outputs.bunnyshell-yaml-contents }}
       comment-on-pr: true
-      deploy-as-stopped: false
     secrets:
-      bunnyshell-access-token: "2717:83a656274fa4a4b6824edaeff1ca1fea"
+      bunnyshell-access-token: ${{ secrets.BUNNYSHELL_PAT_TOKEN }}
