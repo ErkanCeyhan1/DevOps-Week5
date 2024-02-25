@@ -1,4 +1,4 @@
-name: Deploy on Pull request
+name: Deploy on Pull request 2
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
