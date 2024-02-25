@@ -1,4 +1,4 @@
-name: Bunnyshell - Deploy Preview Environment
+name: My Preview Environment
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
