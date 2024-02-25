@@ -18,8 +18,8 @@ jobs:
       allowed-users: "*"
       restricted-files: |
         .bunnyshell/*
-      project-id: ${{ vars.BUNNYSHELL_PROJECT_ID }}
-      cluster-id: ${{ vars.BUNNYSHELL_CLUSTER_ID }}
+      project-id: 2872
+      cluster-id: 2784
       env-name: "Demo PR #${{ github.event.number || github.event.issue.number }}"
       bunnyshell-yaml-path: .bunnyshell/bunnyshell.yaml
       comment-on-pr: true
