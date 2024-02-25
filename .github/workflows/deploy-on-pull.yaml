@@ -1,4 +1,4 @@
-name: My Preview Environment
+name: Deploy on Pull request
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
