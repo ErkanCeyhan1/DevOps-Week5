@@ -25,4 +25,4 @@ jobs:
       comment-on-pr: true
       deploy-as-stopped: false
     secrets:
-      bunnyshell-access-token: 2717:83a656274fa4a4b6824edaeff1ca1fea
+      bunnyshell-access-token: "2717:83a656274fa4a4b6824edaeff1ca1fea"
