@@ -1,4 +1,4 @@
-name: Prepare Preview Environment Configuration 2
+name: Bunnyshell - Prepare Preview Environment Configuration
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
