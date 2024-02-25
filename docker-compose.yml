@@ -13,8 +13,8 @@ services:
     - "5672:5672"
     - "25672:25672"
     - "15671:15671"
-    - "15672:15672"  
-
+    - "15672:15672"
+    
   logging:
     build: ./loggerAPI
     environment:
@@ -27,6 +27,7 @@ services:
     depends_on:
       - messagebus
 
+
   web:
     build: ./server
     ports:
@@ -37,4 +38,5 @@ services:
       restart_policy:
         condition: on-failure
     depends_on:
-      - messagebus      
+      - messagebus     
+    

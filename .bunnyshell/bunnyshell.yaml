@@ -1,0 +1,58 @@
+kind: Environment
+name: preview
+type: primary
+urlHandle: q7ayt7
+components:
+    -
+        kind: Application
+        name: logging
+        gitRepo: 'https://github.com/ErkanCeyhan1/DevOps-Week5.git'
+        gitBranch: main
+        gitApplicationPath: loggerAPI
+        dockerCompose:
+            build:
+                context: ./loggerAPI
+                dockerfile: Dockerfile
+            deploy: {  }
+            environment:
+                MESSAGE_QUEUE: 'amqp://messagebus'
+    -
+        kind: Service
+        name: messagebus
+        dockerCompose:
+            hostname: messagebus
+            image: 'rabbitmq:latest'
+            labels:
+                NAME: messagebus
+            ports:
+                - '4369:4369'
+                - '5671:5671'
+                - '5672:5672'
+                - '25672:25672'
+                - '15671:15671'
+                - '15672:15672'
+        hosts:
+            -
+                hostname: 'messagebus-{{ env.base_domain }}'
+                path: /
+                servicePort: 4369
+    -
+        kind: Application
+        name: web
+        gitRepo: 'https://github.com/ErkanCeyhan1/DevOps-Week5.git'
+        gitBranch: main
+        gitApplicationPath: server
+        dockerCompose:
+            build:
+                context: ./server
+                dockerfile: Dockerfile
+            deploy: {  }
+            environment:
+                MESSAGE_QUEUE: 'amqp://messagebus'
+            ports:
+                - '3000:3000'
+        hosts:
+            -
+                hostname: 'web-{{ env.base_domain }}'
+                path: /
+                servicePort: 3000
