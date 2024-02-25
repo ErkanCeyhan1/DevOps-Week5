@@ -7,7 +7,14 @@ services:
     hostname: "messagebus"
     labels:
       NAME: "messagebus"
-
+    ports:
+    - "4369:4369"
+    - "5671:5671"
+    - "5672:5672"
+    - "25672:25672"
+    - "15671:15671"
+    - "15672:15672"
+    
   logging:
     build: ./loggerAPI
     environment:
