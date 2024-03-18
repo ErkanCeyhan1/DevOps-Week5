@@ -13,6 +13,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
+#test
 
 RUN npm install
 
